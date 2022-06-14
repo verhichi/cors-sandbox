@@ -1,45 +1,26 @@
+import axios from 'axios'
 import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { Button, Space } from 'antd'
 
-function App() {
-  const [count, setCount] = useState(0)
+export const App = () => {
+  const [loading, setLoading] = useState(false)
+
+  const handleClickButton = async () => {
+    setLoading(true)
+    try {
+      await axios.get('http://localhost:8080/api')
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <Space>
+      <Button type="primary" loading={loading} onClick={handleClickButton}>
+        Send Request!
+      </Button>
+    </Space>
   )
 }
-
-export default App
