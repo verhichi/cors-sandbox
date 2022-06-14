@@ -27,7 +27,7 @@ $ yarn install
 
 #### Backend
 
-Run the following command to start Backend server in development mode.
+Run the following command to start Backend server in development mode.  
 This will start a service in `http://localhost:8080`.
 
 ```bash
@@ -37,7 +37,7 @@ $ yarn start:back
 
 #### Frontend
 
-Run the following command to start Frontend dev server.
+Run the following command to start Frontend dev server.  
 This will start a service in `http://localhost:3000`.
 
 ```bash
