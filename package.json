@@ -3,11 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "workspaces": [
-    "frontend",
-    "backend"
+    "packages/apps/*",
+    "packages/shared/*"
   ],
   "scripts": {
-    "test": "echo test"
+    "start:front": "yarn workspace @cors/frontend dev",
+    "start:back": "yarn workspace @cors/backend start:dev"
   },
   "devDependencies": {
     "typescript": "^4.6.3"
