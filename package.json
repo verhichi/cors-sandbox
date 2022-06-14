@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "packages/apps/*",
-    "packages/shared/*"
+    "packages/apps/*"
   ],
   "scripts": {
     "start:back": "yarn workspace @cors/backend start:dev",
