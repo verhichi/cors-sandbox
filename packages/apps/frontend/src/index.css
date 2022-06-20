@@ -5,3 +5,9 @@
   max-width: 1280px;
   margin: 20px auto;
 }
+
+.box {
+  background: #aaa;
+  height: 160px;
+  width: 160px;
+}
