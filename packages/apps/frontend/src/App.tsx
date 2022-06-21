@@ -1,7 +1,7 @@
 import axios, { Method } from 'axios'
-import { useState } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { DEFAULT_REQUEST_URL, METHODS } from '@/constants'
-import { Input, Space, Typography, Select, Table, Tag } from 'antd'
+import { Button, Input, Space, Typography, Select } from 'antd'
 
 const { Option } = Select
 const { Search, TextArea } = Input
@@ -9,8 +9,34 @@ const { Paragraph, Text, Title } = Typography
 
 export const App = () => {
   const [loading, setLoading] = useState(false)
+  const [createServerloading, setCreateServerLoading] = useState(false)
   const [isNetworkError, setIsNetworkError] = useState(false)
   const [method, setMethod] = useState<Method>(METHODS[0])
+  const [allowedOrigin, setAllowedOrigin] = useState('')
+  const [allowedHeaders, setAllowedHeaders] = useState('')
+  const [allowedMethods, setAllowedMethods] = useState('')
+
+  const handleChangeAllowedOrigin = (e: ChangeEvent<HTMLInputElement>) =>
+    setAllowedOrigin(e.target.value)
+  const handleChangeAllowedHeaders = (e: ChangeEvent<HTMLInputElement>) =>
+    setAllowedHeaders(e.target.value)
+  const handleChangeAllowedMethods = (e: ChangeEvent<HTMLInputElement>) =>
+    setAllowedMethods(e.target.value)
+  const handleClickCreateServer = async () => {
+    setCreateServerLoading(true)
+
+    try {
+      await axios.post('http://localhost:8080/api', {
+        origin: allowedOrigin || 'http://localhost:3000',
+        allowedHeaders,
+        methods: allowedMethods,
+      })
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setCreateServerLoading(false)
+    }
+  }
 
   const handleChangeMethod = (value: Method) => setMethod(value)
 
@@ -68,9 +94,53 @@ export const App = () => {
         <div className="right box">backend</div>
       </Space>
       <Space>
-        <TextArea />
-        <div className="middle">→→→→→→→</div>
-        <TextArea />
+        <div className="ant-table-container">
+          <table className="server-table">
+            <tbody className="ant-table-thead">
+              <tr className="ant-table-row">
+                <th>Access-Control-Allow-Origin</th>
+                <td className="ant-table-cell">
+                  <Input
+                    placeholder="http://localhost:3000"
+                    value={allowedOrigin}
+                    onChange={handleChangeAllowedOrigin}
+                  />
+                </td>
+              </tr>
+              <tr className="ant-table-row">
+                <th>Access-Control-Allow-Headers</th>
+                <td className="ant-table-cell">
+                  <Input
+                    placeholder="X-MY-CUSTOM-HEADER"
+                    value={allowedHeaders}
+                    onChange={handleChangeAllowedHeaders}
+                  />
+                </td>
+              </tr>
+              <tr className="ant-table-row">
+                <th>Access-Control-Allow-Origin</th>
+                <td className="ant-table-cell">
+                  <Input
+                    placeholder="GET, POST, DELETE, PUT, PATCH"
+                    value={allowedMethods}
+                    onChange={handleChangeAllowedMethods}
+                  />
+                </td>
+              </tr>
+              <tr className="ant-table-row">
+                <td colSpan={2}>
+                  <Button
+                    type="primary"
+                    loading={createServerloading}
+                    onClick={handleClickCreateServer}
+                  >
+                    Setup a server with this setting!
+                  </Button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </Space>
     </Space>
   )
