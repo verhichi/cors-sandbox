@@ -8,7 +8,18 @@ import {
   INITIAL_SERVER_ID,
 } from '@/constants'
 import { useHealthcheck } from '@/hooks'
-import { Button, Input, Space, Typography, Select, Checkbox, Tag, InputRef } from 'antd'
+import {
+  Button,
+  Input,
+  Space,
+  Typography,
+  Select,
+  Checkbox,
+  Tag,
+  InputRef,
+  Radio,
+  RadioChangeEvent,
+} from 'antd'
 import type { CheckboxValueType } from 'antd/es/checkbox/Group'
 import { v4 } from 'uuid'
 import { PlusOutlined, ArrowRightOutlined } from '@ant-design/icons'
@@ -20,7 +31,7 @@ export const App = () => {
   const [loading, setLoading] = useState(false)
   const [createServerloading, setCreateServerLoading] = useState(false)
   const [isNetworkError, setIsNetworkError] = useState(false)
-  const [method, setMethod] = useState<Method>(METHODS[0])
+  const [requestMethod, setRequestMethod] = useState<Method>(METHODS[0])
   const [requestURL, setRequestURL] = useState('')
   const [allowedOrigin, setAllowedOrigin] = useState('')
   const [allowedHeaders, setAllowedHeaders] = useState<string[]>([])
@@ -80,7 +91,8 @@ export const App = () => {
     }
   }
 
-  const handleChangeMethod = (value: Method) => setMethod(value)
+  const handleChangeRequestMethod = (e: RadioChangeEvent) =>
+    setRequestMethod(e.target.value)
 
   const handleChangeRequestURL = (e: ChangeEvent<HTMLInputElement>) =>
     setRequestURL(e.target.value)
@@ -91,7 +103,7 @@ export const App = () => {
 
     try {
       await axios.request({
-        method,
+        method: requestMethod,
         url: requestURL || DEFAULT_REQUEST_URL,
       })
     } catch (e) {
@@ -138,7 +150,18 @@ export const App = () => {
                 </tr>
                 <tr className="ant-table-row">
                   <th>Request Method</th>
-                  <td className="ant-table-cell p-2">TODO</td>
+                  <td className="ant-table-cell p-2">
+                    <Radio.Group
+                      onChange={handleChangeRequestMethod}
+                      value={requestMethod}
+                    >
+                      {METHODS.map((method) => (
+                        <Radio key={method} value={method}>
+                          {method}
+                        </Radio>
+                      ))}
+                    </Radio.Group>
+                  </td>
                 </tr>
                 <tr className="ant-table-row">
                   <td colSpan={2}>
