@@ -119,7 +119,7 @@ export const App = () => {
             <tbody className="ant-table-thead">
               <tr className="ant-table-row">
                 <th>Access-Control-Allow-Origin</th>
-                <td className="ant-table-cell">
+                <td className="ant-table-cell px-2">
                   <Input
                     placeholder="http://localhost:3000"
                     value={allowedOrigin}
@@ -129,7 +129,7 @@ export const App = () => {
               </tr>
               <tr className="ant-table-row">
                 <th>Access-Control-Allow-Headers</th>
-                <td className="ant-table-cell">
+                <td className="ant-table-cell px-2">
                   <Input
                     placeholder="X-MY-CUSTOM-HEADER"
                     value={allowedHeaders}
@@ -139,7 +139,7 @@ export const App = () => {
               </tr>
               <tr className="ant-table-row">
                 <th>Access-Control-Allow-Origin</th>
-                <td className="ant-table-cell">
+                <td className="ant-table-cell px-2">
                   {/* TODO: add generics for return type once available */}
                   <Checkbox.Group
                     options={METHODS}
