@@ -16,6 +16,13 @@
   width: 160px;
 }
 
+.arrow-box {
+  display: flex;
+  height: 160px;
+  justify-content: center;
+  align-items: center;
+}
+
 .tag-plus {
   background: #fff !important;
   border-style: dashed !important;

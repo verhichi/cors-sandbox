@@ -11,10 +11,9 @@ import { useHealthcheck } from '@/hooks'
 import { Button, Input, Space, Typography, Select, Checkbox, Tag, InputRef } from 'antd'
 import type { CheckboxValueType } from 'antd/es/checkbox/Group'
 import { v4 } from 'uuid'
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined, ArrowRightOutlined } from '@ant-design/icons'
 
 const { Option } = Select
-const { Search } = Input
 const { Paragraph, Text, Title } = Typography
 
 export const App = () => {
@@ -22,6 +21,7 @@ export const App = () => {
   const [createServerloading, setCreateServerLoading] = useState(false)
   const [isNetworkError, setIsNetworkError] = useState(false)
   const [method, setMethod] = useState<Method>(METHODS[0])
+  const [requestURL, setRequestURL] = useState('')
   const [allowedOrigin, setAllowedOrigin] = useState('')
   const [allowedHeaders, setAllowedHeaders] = useState<string[]>([])
   const [headerInputValue, setHeaderInputValue] = useState('')
@@ -82,14 +82,17 @@ export const App = () => {
 
   const handleChangeMethod = (value: Method) => setMethod(value)
 
-  const handleClickButton = async (value: string) => {
+  const handleChangeRequestURL = (e: ChangeEvent<HTMLInputElement>) =>
+    setRequestURL(e.target.value)
+
+  const handleClickRequestButton = async () => {
     setLoading(true)
     setIsNetworkError(false)
 
     try {
       await axios.request({
         method,
-        url: value || DEFAULT_REQUEST_URL,
+        url: requestURL || DEFAULT_REQUEST_URL,
       })
     } catch (e) {
       console.log(e)
@@ -112,108 +115,138 @@ export const App = () => {
       <hr />
       <Space direction="vertical">
         <Title level={1}>Try sending a request!</Title>
-        <Search
-          placeholder={DEFAULT_REQUEST_URL}
-          enterButton="Send Request"
-          onSearch={handleClickButton}
-          size="large"
-          loading={loading}
-          addonBefore={
-            <Select<Method> defaultValue={METHODS[0]} onChange={handleChangeMethod}>
-              {METHODS.map((method) => (
-                <Option key={method} value={method}>
-                  {method}
-                </Option>
-              ))}
-            </Select>
-          }
-        />
-        {isNetworkError && <Text type="danger">Network Error!</Text>}
       </Space>
-      <Space>
-        <div className="left box">frontend</div>
-        <div className="middle">→→→→→→→</div>
-        <div className="right box" style={{ background: isServerUp ? 'green' : 'red' }}>
-          backend
+      <div className="flex">
+        <div className="basis-0 grow">
+          <div className="ml-auto box">frontend</div>
+          <div className="ant-table-container">
+            <table className="w-full">
+              <tbody className="ant-table-thead">
+                <tr className="ant-table-row">
+                  <th>Request URL</th>
+                  <td className="ant-table-cell p-2">
+                    <Input
+                      placeholder={DEFAULT_REQUEST_URL}
+                      value={allowedOrigin}
+                      onChange={handleChangeRequestURL}
+                    />
+                  </td>
+                </tr>
+                <tr className="ant-table-row">
+                  <th>Request Headers</th>
+                  <td className="ant-table-cell p-2">TODO</td>
+                </tr>
+                <tr className="ant-table-row">
+                  <th>Request Method</th>
+                  <td className="ant-table-cell p-2">TODO</td>
+                </tr>
+                <tr className="ant-table-row">
+                  <td colSpan={2}>
+                    <Button
+                      type="primary"
+                      className="w-full"
+                      loading={createServerloading}
+                      onClick={handleClickRequestButton}
+                    >
+                      Setup a server with this setting!
+                    </Button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </Space>
-      <Space>
-        <div className="ant-table-container">
-          <table className="server-table">
-            <tbody className="ant-table-thead">
-              <tr className="ant-table-row">
-                <th>Access-Control-Allow-Origin</th>
-                <td className="ant-table-cell p-2">
-                  <Input
-                    placeholder="http://localhost:3000"
-                    value={allowedOrigin}
-                    onChange={handleChangeAllowedOrigin}
-                  />
-                </td>
-              </tr>
-              <tr className="ant-table-row">
-                <th>Access-Control-Allow-Headers</th>
-                <td className="ant-table-cell p-2">
-                  <div className="mb-2">
-                    {allowedHeaders.map((header) => (
-                      <Tag
-                        key={header}
-                        closable
-                        onClose={(e) => {
-                          e.preventDefault()
-                          handleClose(header)
-                        }}
-                        className="tag"
-                      >
-                        {header}
-                      </Tag>
-                    ))}
-                  </div>
-                  <div>
-                    {headerInputVisible ? (
-                      <Input
-                        ref={headerInputRef}
-                        type="text"
-                        size="small"
-                        placeholder="X-MY-CUSTOM-HEADER"
-                        value={headerInputValue}
-                        onChange={handleChangeHeaderInputValue}
-                        onBlur={handleInputConfirm}
-                        onPressEnter={handleInputConfirm}
-                      />
-                    ) : (
-                      <Tag onClick={showInput} className="tag-plus">
-                        <PlusOutlined className="mr-1" /> Click to add Header
-                      </Tag>
-                    )}
-                  </div>
-                </td>
-              </tr>
-              <tr className="ant-table-row">
-                <th>Access-Control-Allow-Origin</th>
-                <td className="ant-table-cell p-2">
-                  {/* TODO: add generics for return type once available */}
-                  <Checkbox.Group
-                    options={METHODS}
-                    onChange={handleChangeAllowedMethods}
-                  />
-                </td>
-              </tr>
-              <tr className="ant-table-row">
-                <td colSpan={2}>
-                  <Button
-                    type="primary"
-                    loading={createServerloading}
-                    onClick={handleClickCreateServer}
-                  >
-                    Setup a server with this setting!
-                  </Button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="basis-0">
+          <div className="arrow-box">
+            <ArrowRightOutlined />
+            <ArrowRightOutlined />
+            <ArrowRightOutlined />
+            <ArrowRightOutlined />
+            <ArrowRightOutlined />
+          </div>
         </div>
-      </Space>
+        <div className="basis-0 grow">
+          <div className="box" style={{ background: isServerUp ? 'green' : 'red' }}>
+            backend
+          </div>
+          <div className="ant-table-container">
+            <table className="w-full">
+              <tbody className="ant-table-thead">
+                <tr className="ant-table-row">
+                  <th>Access-Control-Allow-Origin</th>
+                  <td className="ant-table-cell p-2">
+                    <Input
+                      placeholder="http://localhost:3000"
+                      value={allowedOrigin}
+                      onChange={handleChangeAllowedOrigin}
+                    />
+                  </td>
+                </tr>
+                <tr className="ant-table-row">
+                  <th>Access-Control-Allow-Headers</th>
+                  <td className="ant-table-cell p-2">
+                    <div className="mb-2">
+                      {allowedHeaders.map((header) => (
+                        <Tag
+                          key={header}
+                          closable
+                          onClose={(e) => {
+                            e.preventDefault()
+                            handleClose(header)
+                          }}
+                          className="tag"
+                        >
+                          {header}
+                        </Tag>
+                      ))}
+                    </div>
+                    <div>
+                      {headerInputVisible ? (
+                        <Input
+                          ref={headerInputRef}
+                          type="text"
+                          size="small"
+                          placeholder="X-MY-CUSTOM-HEADER"
+                          value={headerInputValue}
+                          onChange={handleChangeHeaderInputValue}
+                          onBlur={handleInputConfirm}
+                          onPressEnter={handleInputConfirm}
+                        />
+                      ) : (
+                        <Tag onClick={showInput} className="tag-plus">
+                          <PlusOutlined className="mr-1" /> Click to add Header
+                        </Tag>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+                <tr className="ant-table-row">
+                  <th>Access-Control-Allow-Origin</th>
+                  <td className="ant-table-cell p-2">
+                    {/* TODO: add generics for return type once available */}
+                    <Checkbox.Group
+                      options={METHODS}
+                      onChange={handleChangeAllowedMethods}
+                    />
+                  </td>
+                </tr>
+                <tr className="ant-table-row">
+                  <td colSpan={2}>
+                    <Button
+                      type="primary"
+                      className="w-full"
+                      loading={createServerloading}
+                      onClick={handleClickCreateServer}
+                    >
+                      Setup a server with this setting!
+                    </Button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </Space>
   )
 }
