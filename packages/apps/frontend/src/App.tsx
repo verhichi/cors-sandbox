@@ -8,7 +8,8 @@ import {
   INITIAL_SERVER_ID,
 } from '@/constants'
 import { useHealthcheck } from '@/hooks'
-import { Button, Input, Space, Typography, Select } from 'antd'
+import { Button, Input, Space, Typography, Select, Checkbox } from 'antd'
+import type { CheckboxValueType } from 'antd/es/checkbox/Group'
 import { v4 } from 'uuid'
 
 const { Option } = Select
@@ -22,7 +23,7 @@ export const App = () => {
   const [method, setMethod] = useState<Method>(METHODS[0])
   const [allowedOrigin, setAllowedOrigin] = useState('')
   const [allowedHeaders, setAllowedHeaders] = useState('')
-  const [allowedMethods, setAllowedMethods] = useState('')
+  const [allowedMethods, setAllowedMethods] = useState<Method[]>([])
   const [serverID, setServerID] = useState(INITIAL_SERVER_ID)
 
   const { isServerUp } = useHealthcheck({
@@ -35,8 +36,8 @@ export const App = () => {
     setAllowedOrigin(e.target.value)
   const handleChangeAllowedHeaders = (e: ChangeEvent<HTMLInputElement>) =>
     setAllowedHeaders(e.target.value)
-  const handleChangeAllowedMethods = (e: ChangeEvent<HTMLInputElement>) =>
-    setAllowedMethods(e.target.value)
+  const handleChangeAllowedMethods = (checkedvalues: CheckboxValueType[]) =>
+    setAllowedMethods(checkedvalues as Method[])
 
   const handleClickCreateServer = async () => {
     setCreateServerLoading(true)
@@ -45,7 +46,7 @@ export const App = () => {
       await axios.post('http://localhost:8080/api/createServer', {
         origin: allowedOrigin || 'http://localhost:3000',
         allowedHeaders,
-        methods: allowedMethods,
+        methods: allowedMethods.join(','),
       })
       setServerID(v4())
     } catch (e) {
@@ -139,9 +140,9 @@ export const App = () => {
               <tr className="ant-table-row">
                 <th>Access-Control-Allow-Origin</th>
                 <td className="ant-table-cell">
-                  <Input
-                    placeholder="GET, POST, DELETE, PUT, PATCH"
-                    value={allowedMethods}
+                  {/* TODO: add generics for return type once available */}
+                  <Checkbox.Group
+                    options={METHODS}
                     onChange={handleChangeAllowedMethods}
                   />
                 </td>
