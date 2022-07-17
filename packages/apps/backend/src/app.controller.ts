@@ -1,15 +1,7 @@
-import {
-  Controller,
-  Post,
-  Body,
-  INestApplication,
-  Get,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common'
+import { Controller, Post, Body, INestApplication, Get } from '@nestjs/common'
 import { AppService } from './app.service'
 import { tServerOptions, tNoServer } from './types'
-import { NO_SERVER } from './constants'
+import { NO_SERVER, SERVER_STATE } from './constants'
 import axios from 'axios'
 
 @Controller('api')
@@ -31,15 +23,9 @@ export class AppController {
   async healthCheck() {
     try {
       await axios.get('http://localhost:8000/api/monitor')
-      return 'success'
+      return SERVER_STATE.SUCCESS
     } catch {
-      throw new HttpException(
-        {
-          status: HttpStatus.FORBIDDEN,
-          error: 'Server is not up',
-        },
-        HttpStatus.FORBIDDEN,
-      )
+      return SERVER_STATE.FAILURE
     }
   }
 }
