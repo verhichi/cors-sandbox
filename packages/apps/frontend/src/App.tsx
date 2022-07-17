@@ -145,6 +145,10 @@ export const App = () => {
                   </td>
                 </tr>
                 <tr className="ant-table-row">
+                  <th>Current Origin</th>
+                  <td className="ant-table-cell p-2">{window.location.origin}</td>
+                </tr>
+                <tr className="ant-table-row">
                   <th>Request Headers</th>
                   <td className="ant-table-cell p-2">TODO</td>
                 </tr>
@@ -171,7 +175,7 @@ export const App = () => {
                       loading={createServerloading}
                       onClick={handleClickRequestButton}
                     >
-                      Setup a server with this setting!
+                      Send request with this setting!
                     </Button>
                   </td>
                 </tr>
@@ -195,6 +199,7 @@ export const App = () => {
           <div className="ant-table-container">
             <table className="w-full">
               <tbody className="ant-table-thead">
+                <tr className="ant-table-row"></tr>
                 <tr className="ant-table-row">
                   <th>Access-Control-Allow-Origin</th>
                   <td className="ant-table-cell p-2">
