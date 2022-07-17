@@ -1,10 +1,18 @@
 import axios, { Method } from 'axios'
 import { useState, ChangeEvent } from 'react'
-import { DEFAULT_REQUEST_URL, METHODS } from '@/constants'
+import {
+  DEFAULT_REQUEST_URL,
+  METHODS,
+  HEALTHCHECK_REQUEST_URL,
+  HEALTHCHECK_REQUEST_INTERVAL_MS,
+  INITIAL_SERVER_ID,
+} from '@/constants'
+import { useHealthcheck } from '@/hooks'
 import { Button, Input, Space, Typography, Select } from 'antd'
+import { v4 } from 'uuid'
 
 const { Option } = Select
-const { Search, TextArea } = Input
+const { Search } = Input
 const { Paragraph, Text, Title } = Typography
 
 export const App = () => {
@@ -15,6 +23,13 @@ export const App = () => {
   const [allowedOrigin, setAllowedOrigin] = useState('')
   const [allowedHeaders, setAllowedHeaders] = useState('')
   const [allowedMethods, setAllowedMethods] = useState('')
+  const [serverID, setServerID] = useState(INITIAL_SERVER_ID)
+
+  const { isServerUp } = useHealthcheck({
+    url: HEALTHCHECK_REQUEST_URL,
+    intervalMS: HEALTHCHECK_REQUEST_INTERVAL_MS,
+    serverID,
+  })
 
   const handleChangeAllowedOrigin = (e: ChangeEvent<HTMLInputElement>) =>
     setAllowedOrigin(e.target.value)
@@ -22,6 +37,7 @@ export const App = () => {
     setAllowedHeaders(e.target.value)
   const handleChangeAllowedMethods = (e: ChangeEvent<HTMLInputElement>) =>
     setAllowedMethods(e.target.value)
+
   const handleClickCreateServer = async () => {
     setCreateServerLoading(true)
 
@@ -31,6 +47,7 @@ export const App = () => {
         allowedHeaders,
         methods: allowedMethods,
       })
+      setServerID(v4())
     } catch (e) {
       console.log(e)
     } finally {
@@ -91,7 +108,9 @@ export const App = () => {
       <Space>
         <div className="left box">frontend</div>
         <div className="middle">→→→→→→→</div>
-        <div className="right box">backend</div>
+        <div className="right box" style={{ background: isServerUp ? 'green' : 'red' }}>
+          backend
+        </div>
       </Space>
       <Space>
         <div className="ant-table-container">
