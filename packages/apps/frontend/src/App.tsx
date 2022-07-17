@@ -31,6 +31,9 @@ export const App = () => {
   const [isNetworkError, setIsNetworkError] = useState(false)
   const [requestMethod, setRequestMethod] = useState<Method>(METHODS[0])
   const [requestURL, setRequestURL] = useState('')
+  const [requestHeader, setRequestHeader] = useState<Record<string, string>>({})
+  const [requestHeaderKey, setRequestHeaderKey] = useState('')
+  const [requestHeaderValue, setRequestHeaderValue] = useState('')
   const [allowedOrigin, setAllowedOrigin] = useState('')
   const [allowedHeaders, setAllowedHeaders] = useState<string[]>([])
   const [headerInputValue, setHeaderInputValue] = useState('')
@@ -95,6 +98,24 @@ export const App = () => {
   const handleChangeRequestURL = (e: ChangeEvent<HTMLInputElement>) =>
     setRequestURL(e.target.value)
 
+  const handleChangeRequestHeaderKey = (e: ChangeEvent<HTMLInputElement>) =>
+    setRequestHeaderKey(e.target.value)
+
+  const handleChangeRequestHeaderValue = (e: ChangeEvent<HTMLInputElement>) =>
+    setRequestHeaderValue(e.target.value)
+
+  const handleClickAddRequestHeader = () => {
+    if (!requestHeaderKey) return
+    setRequestHeader({ ...requestHeader, [requestHeaderKey]: requestHeaderValue })
+    setRequestHeaderKey('')
+    setRequestHeaderValue('')
+  }
+
+  const handleCloseRequestHeader = (removedHeader: string) => {
+    const { [removedHeader]: deletedKey, ...rest } = requestHeader
+    setRequestHeader(rest)
+  }
+
   const handleClickRequestButton = async () => {
     setLoading(true)
     setIsNetworkError(false)
@@ -103,6 +124,7 @@ export const App = () => {
       await axios.request({
         method: requestMethod,
         url: requestURL || DEFAULT_REQUEST_URL,
+        headers: requestHeader,
       })
     } catch (e) {
       console.log(e)
@@ -148,7 +170,42 @@ export const App = () => {
                 </tr>
                 <tr className="ant-table-row">
                   <th>Request Headers</th>
-                  <td className="ant-table-cell p-2">TODO</td>
+                  <td className="ant-table-cell p-2">
+                    <div className="flex">
+                      <Input
+                        className="grow basis-0"
+                        placeholder="X-KEY-NAME"
+                        value={requestHeaderKey}
+                        onChange={handleChangeRequestHeaderKey}
+                      />
+                      <div className="mx-1 font-bold">:</div>
+                      <Input
+                        className="grow basis-1/3"
+                        placeholder="MY VALUE"
+                        value={requestHeaderValue}
+                        onChange={handleChangeRequestHeaderValue}
+                      />
+                      <Button
+                        icon={<PlusOutlined />}
+                        onClick={handleClickAddRequestHeader}
+                      />
+                    </div>
+                    <div className="mt-1">
+                      {Object.entries(requestHeader).map(([key, value]) => (
+                        <Tag
+                          key={key}
+                          closable
+                          onClose={(e) => {
+                            e.preventDefault()
+                            handleCloseRequestHeader(key)
+                          }}
+                          className="tag"
+                        >
+                          {key}: {value}
+                        </Tag>
+                      ))}
+                    </div>
+                  </td>
                 </tr>
                 <tr className="ant-table-row">
                   <th>Request Method</th>
