@@ -13,7 +13,6 @@ import {
   Input,
   Space,
   Typography,
-  Select,
   Checkbox,
   Tag,
   InputRef,
@@ -24,7 +23,6 @@ import type { CheckboxValueType } from 'antd/es/checkbox/Group'
 import { v4 } from 'uuid'
 import { PlusOutlined, ArrowRightOutlined } from '@ant-design/icons'
 
-const { Option } = Select
 const { Paragraph, Text, Title } = Typography
 
 export const App = () => {
