@@ -26,7 +26,7 @@ export const App = () => {
     setCreateServerLoading(true)
 
     try {
-      await axios.post('http://localhost:8080/api', {
+      await axios.post('http://localhost:8080/api/createServer', {
         origin: allowedOrigin || 'http://localhost:3000',
         allowedHeaders,
         methods: allowedMethods,

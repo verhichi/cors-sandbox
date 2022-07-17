@@ -3,3 +3,5 @@ export type tServerOptions = {
   allowedHeaders: string
   methods: string
 }
+
+export type tNoServer = undefined

@@ -10,6 +10,11 @@ export class ServerController {
     return this.serverService.getHello()
   }
 
+  @Get('monitor')
+  healthCheck() {
+    return 'success'
+  }
+
   @Post()
   postHello() {
     return this.serverService.getHello()
