@@ -1,5 +1,5 @@
 import axios, { Method } from 'axios'
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, useRef, useEffect } from 'react'
 import {
   DEFAULT_REQUEST_URL,
   METHODS,
@@ -8,9 +8,10 @@ import {
   INITIAL_SERVER_ID,
 } from '@/constants'
 import { useHealthcheck } from '@/hooks'
-import { Button, Input, Space, Typography, Select, Checkbox } from 'antd'
+import { Button, Input, Space, Typography, Select, Checkbox, Tag, InputRef } from 'antd'
 import type { CheckboxValueType } from 'antd/es/checkbox/Group'
 import { v4 } from 'uuid'
+import { PlusOutlined } from '@ant-design/icons'
 
 const { Option } = Select
 const { Search } = Input
@@ -22,7 +23,11 @@ export const App = () => {
   const [isNetworkError, setIsNetworkError] = useState(false)
   const [method, setMethod] = useState<Method>(METHODS[0])
   const [allowedOrigin, setAllowedOrigin] = useState('')
-  const [allowedHeaders, setAllowedHeaders] = useState('')
+  const [allowedHeaders, setAllowedHeaders] = useState<string[]>([])
+  const [headerInputValue, setHeaderInputValue] = useState('')
+  const [headerInputVisible, setHeaderInputVisible] = useState(false)
+  const headerInputRef = useRef<InputRef>(null)
+
   const [allowedMethods, setAllowedMethods] = useState<Method[]>([])
   const [serverID, setServerID] = useState(INITIAL_SERVER_ID)
 
@@ -32,10 +37,29 @@ export const App = () => {
     serverID,
   })
 
+  useEffect(() => {
+    if (headerInputVisible) headerInputRef.current?.focus()
+  }, [headerInputVisible])
+
   const handleChangeAllowedOrigin = (e: ChangeEvent<HTMLInputElement>) =>
     setAllowedOrigin(e.target.value)
-  const handleChangeAllowedHeaders = (e: ChangeEvent<HTMLInputElement>) =>
-    setAllowedHeaders(e.target.value)
+
+  const handleChangeHeaderInputValue = (e: ChangeEvent<HTMLInputElement>) =>
+    setHeaderInputValue(e.target.value)
+  const handleInputConfirm = () => {
+    if (headerInputValue && allowedHeaders.indexOf(headerInputValue) === -1) {
+      setAllowedHeaders([...allowedHeaders, headerInputValue])
+    }
+    setHeaderInputVisible(false)
+    setHeaderInputValue('')
+  }
+  const showInput = () => {
+    setHeaderInputVisible(true)
+  }
+  const handleClose = (removedHeader: string) => {
+    setAllowedHeaders(allowedHeaders.filter((header) => header !== removedHeader))
+  }
+
   const handleChangeAllowedMethods = (checkedvalues: CheckboxValueType[]) =>
     setAllowedMethods(checkedvalues as Method[])
 
@@ -119,7 +143,7 @@ export const App = () => {
             <tbody className="ant-table-thead">
               <tr className="ant-table-row">
                 <th>Access-Control-Allow-Origin</th>
-                <td className="ant-table-cell px-2">
+                <td className="ant-table-cell p-2">
                   <Input
                     placeholder="http://localhost:3000"
                     value={allowedOrigin}
@@ -129,17 +153,45 @@ export const App = () => {
               </tr>
               <tr className="ant-table-row">
                 <th>Access-Control-Allow-Headers</th>
-                <td className="ant-table-cell px-2">
-                  <Input
-                    placeholder="X-MY-CUSTOM-HEADER"
-                    value={allowedHeaders}
-                    onChange={handleChangeAllowedHeaders}
-                  />
+                <td className="ant-table-cell p-2">
+                  <div className="mb-2">
+                    {allowedHeaders.map((header) => (
+                      <Tag
+                        key={header}
+                        closable
+                        onClose={(e) => {
+                          e.preventDefault()
+                          handleClose(header)
+                        }}
+                        className="tag"
+                      >
+                        {header}
+                      </Tag>
+                    ))}
+                  </div>
+                  <div>
+                    {headerInputVisible ? (
+                      <Input
+                        ref={headerInputRef}
+                        type="text"
+                        size="small"
+                        placeholder="X-MY-CUSTOM-HEADER"
+                        value={headerInputValue}
+                        onChange={handleChangeHeaderInputValue}
+                        onBlur={handleInputConfirm}
+                        onPressEnter={handleInputConfirm}
+                      />
+                    ) : (
+                      <Tag onClick={showInput} className="tag-plus">
+                        <PlusOutlined className="mr-1" /> Click to add Header
+                      </Tag>
+                    )}
+                  </div>
                 </td>
               </tr>
               <tr className="ant-table-row">
                 <th>Access-Control-Allow-Origin</th>
-                <td className="ant-table-cell px-2">
+                <td className="ant-table-cell p-2">
                   {/* TODO: add generics for return type once available */}
                   <Checkbox.Group
                     options={METHODS}

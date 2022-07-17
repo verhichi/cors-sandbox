@@ -15,3 +15,18 @@
   height: 160px;
   width: 160px;
 }
+
+.tag-plus {
+  background: #fff !important;
+  border-style: dashed !important;
+  cursor: pointer;
+  display: inline-flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.tag {
+  display: inline-flex !important;
+  justify-content: center;
+  align-items: center;
+}
