@@ -1,9 +1,8 @@
-import axios, { Method } from 'axios'
-import { useState, ChangeEvent } from 'react'
 import { DEFAULT_REQUEST_URL, METHODS } from '@/constants'
-import { Button, Input, Tag, Radio, RadioChangeEvent } from 'antd'
+import { Button, Input, Tag, Radio } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { useFrontArea } from './hooks/useFrontArea'
+import { ReactComponent as WebIcon } from '@/assets/web.svg'
 
 export const FrontArea = () => {
   const {
@@ -18,7 +17,10 @@ export const FrontArea = () => {
 
   return (
     <div className="basis-0 grow">
-      <div className="ml-auto box">frontend</div>
+      <div className="ml-auto box flex items-center justify-center relative">
+        <div className="absolute top-0">Browser</div>
+        <WebIcon viewBox="0 0 48 48" stroke="#555" fill="#555" />
+      </div>
       <div className="ant-table-container">
         <table className="w-full">
           <tbody className="ant-table-thead">

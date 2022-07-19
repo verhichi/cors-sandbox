@@ -64,7 +64,7 @@ export const useBackArea = () => {
 
   return {
     backendBoxProps: {
-      style: { background: isServerUp ? 'green' : 'red' },
+      style: { stroke: isServerUp ? 'green' : 'red', fill: isServerUp ? 'green' : 'red' },
     },
     allowedOriginInputProps: {
       value: allowedOrigin,

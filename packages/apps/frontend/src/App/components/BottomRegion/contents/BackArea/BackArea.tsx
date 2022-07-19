@@ -1,6 +1,7 @@
 import { Button, Input, Checkbox, Tag } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { useBackArea } from './hooks/useBackArea'
+import { ReactComponent as DNSIcon } from '@/assets/dns.svg'
 
 export const BackArea = () => {
   const {
@@ -15,8 +16,9 @@ export const BackArea = () => {
 
   return (
     <div className="basis-0 grow">
-      <div className="box" {...backendBoxProps}>
-        backend
+      <div className="box flex items-center justify-center relative">
+        <div className="absolute top-0">Server</div>
+        <DNSIcon viewBox="-4 -3 55 55" {...backendBoxProps} />
       </div>
       <div className="ant-table-container">
         <table className="w-full">
