@@ -41,3 +41,17 @@
 .ant-table-row {
   height: 100px;
 }
+
+.ant-table-container tr,
+.ant-table-container td {
+  border: 1px solid #f0f0f0;
+}
+
+.empty-row {
+  background: #fafafa;
+}
+
+.border-0,
+.border-0 td {
+  border: none !important;
+}

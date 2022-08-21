@@ -23,7 +23,9 @@ export const BackArea = () => {
       <div className="ant-table-container">
         <table className="w-full">
           <tbody className="ant-table-thead">
-            <tr className="ant-table-row"></tr>
+            <tr className="ant-table-row empty-row">
+              <td colSpan={2} />
+            </tr>
             <tr className="ant-table-row">
               <th>Access-Control-Allow-Origin</th>
               <td className="ant-table-cell p-2">
@@ -65,7 +67,7 @@ export const BackArea = () => {
                 <Checkbox.Group {...allowedMethodInputProps} />
               </td>
             </tr>
-            <tr className="ant-table-row">
+            <tr className="ant-table-row border-0">
               <td colSpan={2}>
                 <Button type="primary" className="w-full" {...createServerButtonProps}>
                   Setup a server with this setting!

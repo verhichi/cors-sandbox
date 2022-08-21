@@ -80,7 +80,7 @@ export const FrontArea = () => {
                 </Radio.Group>
               </td>
             </tr>
-            <tr className="ant-table-row">
+            <tr className="ant-table-row border-0">
               <td colSpan={2}>
                 <Button type="primary" className="w-full" {...requestButtonProps}>
                   Send request with this setting!

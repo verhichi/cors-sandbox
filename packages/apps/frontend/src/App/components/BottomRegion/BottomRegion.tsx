@@ -9,7 +9,7 @@ export const BottomRegion = () => {
   return (
     <Space direction="vertical">
       <Space direction="vertical">
-        <Title level={1}>Try sending a request!</Title>
+        <Title level={1}>Try Sending a Request!</Title>
       </Space>
       <div className="flex">
         <FrontArea />
