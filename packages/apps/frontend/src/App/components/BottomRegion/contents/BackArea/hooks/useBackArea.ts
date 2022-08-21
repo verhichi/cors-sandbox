@@ -13,7 +13,7 @@ import { notification } from 'antd'
 
 export const useBackArea = () => {
   const [createServerLoading, setCreateServerLoading] = useState(false)
-  const [allowedOrigin, setAllowedOrigin] = useState('')
+  const [allowedOrigin, setAllowedOrigin] = useState('http://localhost:3000')
   const [allowedHeaders, setAllowedHeaders] = useState<string[]>([])
   const [headerInputValue, setHeaderInputValue] = useState('')
 

@@ -40,7 +40,7 @@ export const FrontArea = () => {
                 <div className="flex">
                   <Input
                     className="grow basis-0"
-                    placeholder="X-KEY-NAME"
+                    placeholder="X-MY-CUSTOM-HEADER"
                     {...requestHeaderKeyInputProps}
                   />
                   <div className="mx-1 font-bold">:</div>

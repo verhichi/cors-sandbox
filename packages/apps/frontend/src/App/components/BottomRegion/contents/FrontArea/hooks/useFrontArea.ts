@@ -7,7 +7,7 @@ export const useFrontArea = () => {
   const [requestLoading, setRequestLoading] = useState(false)
   const [isNetworkError, setIsNetworkError] = useState(false)
   const [requestMethod, setRequestMethod] = useState<Method>(METHODS[0])
-  const [requestURL, setRequestURL] = useState('')
+  const [requestURL, setRequestURL] = useState(DEFAULT_REQUEST_URL)
   const [requestHeader, setRequestHeader] = useState<Record<string, string>>({})
   const [requestHeaderKey, setRequestHeaderKey] = useState('')
   const [requestHeaderValue, setRequestHeaderValue] = useState('')
