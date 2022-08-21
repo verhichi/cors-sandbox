@@ -1,7 +1,7 @@
 import axios, { Method } from 'axios'
 import { useState, ChangeEvent } from 'react'
 import { DEFAULT_REQUEST_URL, METHODS } from '@/constants'
-import { RadioChangeEvent } from 'antd'
+import { notification, RadioChangeEvent } from 'antd'
 
 export const useFrontArea = () => {
   const [requestLoading, setRequestLoading] = useState(false)
@@ -46,8 +46,18 @@ export const useFrontArea = () => {
         url: requestURL || DEFAULT_REQUEST_URL,
         headers: requestHeader,
       })
+      notification.success({
+        message: 'Request Sent Successfully!',
+        description: 'Your request was perfect, so no errors!',
+        placement: 'bottom',
+      })
     } catch (e) {
-      console.log(e)
+      notification.error({
+        message: 'Request was Unsuccessful!',
+        description:
+          'There was an error with your request! Check the Developer Tools for details! We can not pick up CORS errors through code!',
+        placement: 'bottom',
+      })
       setIsNetworkError(true)
     } finally {
       setRequestLoading(false)
