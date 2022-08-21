@@ -1,8 +1,11 @@
 import { DEFAULT_REQUEST_URL, METHODS } from '@/constants'
-import { Button, Input, Tag, Radio } from 'antd'
+import { Button, Input, Tag, Radio, Popover, Typography } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { useFrontArea } from './hooks/useFrontArea'
 import { ReactComponent as WebIcon } from '@/assets/web.svg'
+import { QuestionCircleOutlined } from '@ant-design/icons'
+
+const { Text, Paragraph } = Typography
 
 export const FrontArea = () => {
   const {
@@ -25,17 +28,77 @@ export const FrontArea = () => {
         <table className="w-full">
           <tbody className="ant-table-thead">
             <tr className="ant-table-row">
-              <th>Request URL</th>
+              <th>
+                <Popover
+                  placement="topLeft"
+                  content={
+                    <>
+                      <Paragraph>The URL to which you send your request.</Paragraph>
+                      <Paragraph>
+                        The default is <Text code>{DEFAULT_REQUEST_URL}</Text> because
+                        that's where you will create your custom server on in this app,
+                        but you may choose to send it to any other URL.
+                      </Paragraph>
+                    </>
+                  }
+                  title="Request URL"
+                >
+                  <div className="hover:underline hover:cursor-help">
+                    Request URL
+                    <QuestionCircleOutlined className="align-middle" />
+                  </div>
+                </Popover>
+              </th>
               <td className="ant-table-cell p-2">
                 <Input placeholder={DEFAULT_REQUEST_URL} {...requestURLInputProps} />
               </td>
             </tr>
             <tr className="ant-table-row">
-              <th>Current Origin</th>
+              <th>
+                <Popover
+                  placement="topLeft"
+                  content={
+                    <>
+                      <Paragraph>The origin of this app.</Paragraph>
+                      <Paragraph>
+                        If this value is not on the
+                        <Text code>Access-Control-Allow-Origin</Text> list, your request
+                        may result in a CORS error.
+                      </Paragraph>
+                    </>
+                  }
+                  title="Current Origin"
+                >
+                  <div className="hover:underline hover:cursor-help">
+                    Current Origin
+                    <QuestionCircleOutlined className="align-middle" />
+                  </div>
+                </Popover>
+              </th>
               <td className="ant-table-cell p-2">{window.location.origin}</td>
             </tr>
             <tr className="ant-table-row">
-              <th>Request Headers</th>
+              <th>
+                <Popover
+                  placement="topLeft"
+                  content={
+                    <>
+                      <Paragraph>Headers to append to your request.</Paragraph>
+                      <Paragraph>
+                        If the header keys are not on the{' '}
+                        <Text code>Access-Control-Allow-Headers</Text> list, your request
+                        will result in an CORS error.
+                      </Paragraph>
+                    </>
+                  }
+                  title="Request Headers"
+                >
+                  <div className="hover:underline hover:cursor-help">
+                    Request Headers
+                    <QuestionCircleOutlined className="align-middle" />
+                  </div>
+                </Popover>
+              </th>
               <td className="ant-table-cell p-2">
                 <div className="flex">
                   <Input
@@ -69,7 +132,27 @@ export const FrontArea = () => {
               </td>
             </tr>
             <tr className="ant-table-row">
-              <th>Request Method</th>
+              <th>
+                <Popover
+                  placement="topLeft"
+                  content={
+                    <>
+                      <Paragraph>Method used for your request.</Paragraph>
+                      <Paragraph>
+                        If the request method you choose is not on the
+                        <Text code>Access-Control-Allow-Methods</Text> list, your request
+                        may result in an CORS error.
+                      </Paragraph>
+                    </>
+                  }
+                  title="Request Method"
+                >
+                  <div className="hover:underline hover:cursor-help">
+                    Request Method
+                    <QuestionCircleOutlined className="align-middle" />
+                  </div>
+                </Popover>
+              </th>
               <td className="ant-table-cell p-2">
                 <Radio.Group {...requestMethodRadioProps}>
                   {METHODS.map((method) => (
