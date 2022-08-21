@@ -62,7 +62,7 @@ export const BackArea = () => {
               </td>
             </tr>
             <tr className="ant-table-row">
-              <th>Access-Control-Allow-Origin</th>
+              <th>Access-Control-Allow-Methods</th>
               <td className="ant-table-cell p-2">
                 {/* TODO: add generics for return type once available */}
                 <Checkbox.Group {...allowedMethodInputProps} />
