@@ -75,6 +75,7 @@ export const useBackArea = () => {
   }
 
   return {
+    isServerUp,
     backendBoxProps: {
       style: { stroke: isServerUp ? 'green' : 'red', fill: isServerUp ? 'green' : 'red' },
     },

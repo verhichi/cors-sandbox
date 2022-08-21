@@ -5,6 +5,7 @@ import { ReactComponent as DNSIcon } from '@/assets/dns.svg'
 
 export const BackArea = () => {
   const {
+    isServerUp,
     backendBoxProps,
     allowedOriginInputProps,
     allowedHeaderInputProps,
@@ -17,7 +18,7 @@ export const BackArea = () => {
   return (
     <div className="basis-0 grow">
       <div className="box flex items-center justify-center relative">
-        <div className="absolute top-0">Server</div>
+        <div className="absolute top-0">Server({isServerUp ? 'Running' : 'Down'})</div>
         <DNSIcon viewBox="-4 -3 55 55" {...backendBoxProps} />
       </div>
       <div className="ant-table-container">
