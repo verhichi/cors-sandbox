@@ -53,7 +53,7 @@ export const useFrontArea = () => {
       })
     } catch (e) {
       notification.error({
-        message: 'Request was Unsuccessful!',
+        message: 'Request Error!',
         description:
           'There was an error with your request! Check the Developer Tools for details! We can not pick up CORS errors through code!',
         placement: 'bottom',

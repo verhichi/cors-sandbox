@@ -9,6 +9,7 @@ import {
 import { useHealthcheck } from '@/hooks'
 import type { CheckboxValueType } from 'antd/es/checkbox/Group'
 import { v4 } from 'uuid'
+import { notification } from 'antd'
 
 export const useBackArea = () => {
   const [createServerLoading, setCreateServerLoading] = useState(false)
@@ -54,9 +55,20 @@ export const useBackArea = () => {
         allowedHeaders,
         methods: allowedMethods.join(','),
       })
+      notification.success({
+        message: 'Server Created Successfully!',
+        description:
+          'Your server has been created with your settings! Try sending requests to it!',
+        placement: 'bottom',
+      })
       setServerID(v4())
     } catch (e) {
-      console.log(e)
+      notification.error({
+        message: 'Create Server Error!',
+        description:
+          'The parent server may not be up. Please run `yarn start:back` if you have not already! If that does not solve the problem, please send a github issue!',
+        placement: 'bottom',
+      })
     } finally {
       setCreateServerLoading(false)
     }
