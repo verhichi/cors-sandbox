@@ -5,7 +5,7 @@ import { BackArea } from './contents/BackArea'
 
 const { Title } = Typography
 
-export const BottomRegion = () => {
+export const TestRequestRegion = () => {
   return (
     <Space direction="vertical">
       <Space direction="vertical">

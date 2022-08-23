@@ -1,11 +1,11 @@
 import { Space } from 'antd'
-import { TopRegion } from '@/App/components/TopRegion'
-import { BottomRegion } from '@/App/components/BottomRegion'
+import { WhatIsThisRegion } from '@/App/components/WhatIsThisRegion'
+import { TestRequestRegion } from '@/App/components/TestRequestRegion'
 
 export const App = () => (
   <Space direction="vertical">
-    <TopRegion />
+    <WhatIsThisRegion />
     <hr />
-    <BottomRegion />
+    <TestRequestRegion />
   </Space>
 )

@@ -1,7 +1,7 @@
 import { Space, Typography } from 'antd'
 const { Paragraph, Title } = Typography
 
-export const TopRegion = () => (
+export const WhatIsThisRegion = () => (
   <Space direction="vertical">
     <Title level={1}>What is this?</Title>
     <Paragraph>
