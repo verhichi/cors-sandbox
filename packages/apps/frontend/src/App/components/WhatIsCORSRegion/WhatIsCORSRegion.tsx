@@ -19,7 +19,7 @@ export const WhatIsCORSRegion = () => (
       Otherwise, here is my simplified explanation of <Text code>CORS</Text>:
       <blockquote>
         CORS is a mechanism that allows or prevents web pages from accessing resources
-        from a different origin server.
+        from a different origin server
       </blockquote>
       That's it. If you didn't get it, just keep reading and come back later.
     </Paragraph>
@@ -38,11 +38,18 @@ export const WhatIsCORSRegion = () => (
       </Text>
     </Paragraph>
     <Paragraph>
-      So what is the cause of a CORS error? To put it simply:
-      <blockquote>
-        CORS errors are caused by a mismatch between the web pages request and the
-        requested cross-origin server's access settings.
-      </blockquote>
+      <Text className="block">
+        So what is the cause of a CORS error? To put it simply:
+        <blockquote>
+          CORS errors are caused by a mismatch between the web pages request and the
+          requested cross-origin server's access settings
+        </blockquote>
+      </Text>
+      <Text className="block">
+        Because it's a mismatch between the server and the request, know that to resolve
+        the CORS error, you should be requesting help from both the frontend and the
+        backend engineers.
+      </Text>
     </Paragraph>
   </Space>
 )
