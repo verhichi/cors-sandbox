@@ -89,6 +89,42 @@ export const FrontArea = () => {
                         <Text code>Access-Control-Allow-Headers</Text> list, your request
                         will result in an CORS error.
                       </Paragraph>
+                      <hr />
+                      <Paragraph>
+                        Apart from the headers automatically set by the user agent, the
+                        only headers which are allowed to be manually set without the need
+                        for server settings are the ones below:
+                      </Paragraph>
+                      <Paragraph>
+                        <ul>
+                          <li>
+                            <Text code>Accept</Text>
+                          </li>
+                          <li>
+                            <Text code>Accept-Language</Text>
+                          </li>
+                          <li>
+                            <Text code>Content-Language</Text>
+                          </li>
+                          <li>
+                            <Text code>Content-Type</Text>
+                            <ul>
+                              <li>
+                                <Text code>application/x-www-form-urlencoded</Text>
+                              </li>
+                              <li>
+                                <Text code>multipart/form-data</Text>
+                              </li>
+                              <li>
+                                <Text code>text/plain</Text>
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            <Text code>Range</Text>
+                          </li>
+                        </ul>
+                      </Paragraph>
                     </>
                   }
                   title="Request Headers"
@@ -142,6 +178,23 @@ export const FrontArea = () => {
                         If the request method you choose is not on the
                         <Text code>Access-Control-Allow-Methods</Text> list, your request
                         may result in an CORS error.
+                      </Paragraph>
+                      <hr />
+                      <Paragraph>
+                        The following methods can be set without any server settings:
+                      </Paragraph>
+                      <Paragraph>
+                        <ul>
+                          <li>
+                            <Text code>GET</Text>
+                          </li>
+                          <li>
+                            <Text code>HEAD</Text>
+                          </li>
+                          <li>
+                            <Text code>POST</Text>
+                          </li>
+                        </ul>
                       </Paragraph>
                     </>
                   }
