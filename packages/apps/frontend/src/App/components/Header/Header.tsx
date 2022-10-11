@@ -7,7 +7,7 @@ export const Header = () => (
     className="bg-blue-700"
     title={
       <Title level={1} className="text-white">
-        CORS Test
+        CORS Sandbox
       </Title>
     }
     subTitle={

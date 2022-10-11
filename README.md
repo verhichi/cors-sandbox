@@ -1,4 +1,4 @@
-# CORS Test
+# CORS Sandbox
 
 ## What is this?
 
