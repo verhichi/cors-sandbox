@@ -1,5 +1,5 @@
 import { Space, Typography } from 'antd'
-import { ArrowRightOutlined } from '@ant-design/icons'
+import { ArrowRightOutlined, LinkOutlined } from '@ant-design/icons'
 import { FrontArea } from './contents/FrontArea'
 import { BackArea } from './contents/BackArea'
 
@@ -9,7 +9,15 @@ export const TestRequestRegion = () => {
   return (
     <Space direction="vertical">
       <Space direction="vertical">
-        <Title level={2}>Play around with CORS in the Sandbox</Title>
+        <a id="sandbox" href="#sandbox" className="group inline-flex text-black">
+          <LinkOutlined
+            className="invisible group-hover:visible self-center"
+            style={{ fontSize: '32px' }}
+          />
+          <Title className="m-0" level={2}>
+            Play around with CORS in the Sandbox
+          </Title>
+        </a>
         <Paragraph>
           <Text className="block">
             I have prepared a sandbox that allows you to create a server with custom CORS

@@ -1,11 +1,20 @@
 import { Space, Typography } from 'antd'
 import OriginImage from '@/assets/origin.jpg'
+import { LinkOutlined } from '@ant-design/icons'
 
 const { Paragraph, Title, Text } = Typography
 
 export const WhatIsCORSRegion = () => (
   <Space direction="vertical" className="gap-4">
-    <Title level={2}>What is CORS?</Title>
+    <a id="what-is-cors" href="#what-is-cors" className="group inline-flex text-black">
+      <LinkOutlined
+        className="invisible group-hover:visible self-center"
+        style={{ fontSize: '32px' }}
+      />
+      <Title className="m-0" level={2}>
+        What is CORS?
+      </Title>
+    </a>
     <Paragraph>
       If you want a full explanation, read the{' '}
       <a
