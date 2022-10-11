@@ -11,7 +11,7 @@ My practice app to experiment with CORS errors. The goal is to find out the caus
 
 ## How This Works
 
-TODO
+<img src="./.github/README/screenshot.jpg" />
 
 ## Developers
 
