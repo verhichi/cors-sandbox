@@ -1,8 +1,10 @@
 import { Space, Typography } from 'antd'
+import OriginImage from '@/assets/origin.jpg'
+
 const { Paragraph, Title, Text } = Typography
 
 export const WhatIsCORSRegion = () => (
-  <Space direction="vertical">
+  <Space direction="vertical" className="gap-4">
     <Title level={2}>What is CORS?</Title>
     <Paragraph>
       If you want a full explanation, read the{' '}
@@ -30,7 +32,7 @@ export const WhatIsCORSRegion = () => (
         <blockquote>An origin is the protocol, hostname, and port of a URL</blockquote>
         So in the sample URL below, the colored part is the origin.
       </Text>
-      <Text type="success">http://sample-site.com:80</Text>/path/in/the/app
+      <img src={OriginImage} style={{ width: '600px' }} />
       <Text className="block">
         If 2 URLs have any difference in the origin, they are considered to be{' '}
         <Text code>cross-origin</Text>, and cross-origin requests are usually denied by
