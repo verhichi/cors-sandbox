@@ -13,7 +13,7 @@ export const WhatIsThisRegion = () => (
         What is this?
       </Title>
     </a>
-    <Paragraph>
+    <Paragraph className="ml-8">
       This app helps you understand what is causing the CORS error by visualizing the
       frontend request as well as the backend server setting and highlighting the key
       factors that lead to the CORS error.

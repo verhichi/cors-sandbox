@@ -18,7 +18,7 @@ export const TestRequestRegion = () => {
             Play around with CORS in the Sandbox
           </Title>
         </a>
-        <Paragraph>
+        <Paragraph className="ml-8">
           <Text className="block">
             I have prepared a sandbox that allows you to create a server with custom CORS
             settings and send requests to the custom server you have created.
