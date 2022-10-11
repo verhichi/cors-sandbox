@@ -9,7 +9,7 @@ export const TestRequestRegion = () => {
   return (
     <Space direction="vertical">
       <Space direction="vertical">
-        <Title level={1}>Play around with CORS in the Sandbox</Title>
+        <Title level={2}>Play around with CORS in the Sandbox</Title>
         <Paragraph>
           <Text className="block">
             I have prepared a sandbox that allows you to create a server with custom CORS

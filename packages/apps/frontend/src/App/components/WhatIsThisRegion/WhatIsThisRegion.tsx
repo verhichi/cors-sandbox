@@ -3,7 +3,7 @@ const { Paragraph, Title } = Typography
 
 export const WhatIsThisRegion = () => (
   <Space direction="vertical">
-    <Title level={1}>What is this?</Title>
+    <Title level={2}>What is this?</Title>
     <Paragraph>
       This app helps you understand what is causing the CORS error by visualizing the
       frontend request as well as the backend server setting and highlighting the key

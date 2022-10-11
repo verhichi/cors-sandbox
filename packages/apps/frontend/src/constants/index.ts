@@ -1,6 +1,10 @@
 import { Method } from 'axios'
 import { v4 } from 'uuid'
 
+// my profile image url
+export const AVATAR_SRC = 'https://avatars.githubusercontent.com/u/33770652?v=4'
+
+// app related constants
 export const DEFAULT_REQUEST_URL = 'http://localhost:8000/api'
 export const HEALTHCHECK_REQUEST_URL = 'http://localhost:8080/api/healthcheck'
 export const METHODS: Method[] = [

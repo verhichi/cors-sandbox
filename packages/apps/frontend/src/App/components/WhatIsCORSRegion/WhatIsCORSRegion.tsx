@@ -3,7 +3,7 @@ const { Paragraph, Title, Text } = Typography
 
 export const WhatIsCORSRegion = () => (
   <Space direction="vertical">
-    <Title level={1}>What is CORS?</Title>
+    <Title level={2}>What is CORS?</Title>
     <Paragraph>
       If you want a full explanation, read the{' '}
       <a

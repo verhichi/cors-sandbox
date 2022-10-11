@@ -2,16 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  background-color: #f0f0f0 !important;
+}
+
 #root {
-  height: 100%;
+  background-color: #fff !important;
   display: flex;
   justify-content: center;
   max-width: 1280px;
-  margin: 20px auto;
+  margin: auto;
 }
 
 .box {
-  /* background: #aaa; */
   height: 160px;
   width: 160px;
 }
